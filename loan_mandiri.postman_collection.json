@@ -1,0 +1,282 @@
+{
+	"info": {
+		"_postman_id": "2935a4c0-5615-46a6-9d54-a517b69ed7b4",
+		"name": "loan mandiri",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28076144"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"item": [
+						{
+							"name": "register admin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "register staff",
+							"request": {
+								"method": "POST",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "register customer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"andreriyanto@gmail.com\",\n    \"password\": \"andre123\",\n    \"firstName\": \"andre\",\n    \"lastName\":\"riyanto\",\n    \"phone\": \"0813123123\",\n    \"birthDate\": \"19-Dec-2004\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/auth/register/customer",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"register",
+										"customer"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "login",
+					"item": [
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"andreriyanto@gmail.com\",\n    \"password\": \"andre123\"\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "get usre by id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "get customer by id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "get all customer",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "update customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJsaXZlIGNvZGUgbG9hbiIsInN1YiI6ImQ1MDNmY2NlLWM2YzctNDBiZS04MGU3LTM2YmNiMWNkOGNhMCIsImV4cCI6MTcwMjY0MTAzNSwiaWF0IjoxNzAyNjM3NDM1LCJyb2xlIjoiUk9MRV9BRE1JTiJ9.fcj8CBkghzuoyWOlX--RDq7NGTheaI5bTT_xybo0BgQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "localhost:8080/customers",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete customer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/customers/ee1371d3-345f-4d9f-b8ec-0107b067931f",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customers",
+								"ee1371d3-345f-4d9f-b8ec-0107b067931f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "instalment type",
+			"item": [
+				{
+					"name": "create instalment type",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"instalmentType\": \"ONE_MONTHS\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/instalment-type",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"instalment-type"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all installment type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/instalment-type/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"instalment-type",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id installment type",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "update instalment type",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJsaXZlIGNvZGUgbG9hbiIsInN1YiI6IjJjNjIxNThkLWQxZTItNGQwNS1hNGRlLWFhMjI1MmZkZDczOSIsImV4cCI6MTcwMjY1MDMxOCwiaWF0IjoxNzAyNjQ2NzE4LCJyb2xlIjoiUk9MRV9BRE1JTiJ9.YuStTj5wFVriO9eP9msKwamRikSPFQ-azPW5pR5vJdY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/instalment-type/c66a31f4-b547-4231-b567-d7d882a8b7d1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"instalment-type",
+								"c66a31f4-b547-4231-b567-d7d882a8b7d1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
