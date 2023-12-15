@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.function.EntityResponse;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -52,5 +53,14 @@ public class RoleServiceImpl implements RoleService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
         roleRepository.delete(currentRole);
+    }
+
+    @Override
+    public Role getOrSave(Role role) {
+        Optional<Role> currentRole = roleRepository.findByRole(role.getRole());
+        if (!currentRole.isEmpty()){
+            return currentRole.get();
+        }
+        return roleRepository.saveAndFlush(role);
     }
 }

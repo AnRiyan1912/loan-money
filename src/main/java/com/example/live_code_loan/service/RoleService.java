@@ -10,4 +10,5 @@ public interface RoleService {
     Role getById(String id);
     List<Role> getAll();
     void remove(String id);
+    Role getOrSave(Role role);
 }

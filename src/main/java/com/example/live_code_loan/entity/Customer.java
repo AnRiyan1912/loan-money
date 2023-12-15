@@ -22,7 +22,6 @@ public class Customer {
     private String firstName;
     @Column(name = "last_name", length = 50, nullable = false)
     private String lastName;
-    @DateTimeFormat(style = "yyyy-mm-dd")
     @Column(name = "date_of_birth", length = 100, nullable = false)
     private Date dateOfBirth;
     @Column(nullable = false, length = 40, unique = true)

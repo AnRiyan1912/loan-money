@@ -1,8 +1,13 @@
 package com.example.live_code_loan.service.impl;
 
+import com.example.live_code_loan.dto.customer.request.CustomerRequest;
+import com.example.live_code_loan.dto.customer.response.CustomerResponse;
+import com.example.live_code_loan.dto.customer.response.CustomerUserResponse;
 import com.example.live_code_loan.entity.Customer;
+import com.example.live_code_loan.mapper.CustomerResponseMapper;
 import com.example.live_code_loan.repository.CustomerRepository;
 import com.example.live_code_loan.service.CustomerService;
+import com.example.live_code_loan.util.DateFormat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,34 +25,70 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer update(Customer customer) {
-        Customer currentCustomer = getById(customer.getId());
-        if (currentCustomer == null) {
+    public CustomerResponse update(CustomerRequest customerRequest) {
+        CustomerUserResponse customerResponse = getById(customerRequest.getId());
+        if (customerResponse == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found");
         }
-        return customerRepository.save(customer);
+        Customer saveCustomer = customerRepository.save(Customer.builder()
+                        .id(customerRequest.getId())
+                        .firstName(customerRequest.getFirstName())
+                        .lastName(customerRequest.getLastName())
+                        .dateOfBirth(DateFormat.formatStringToDate(customerRequest.getDateOfBirth()))
+                        .phone(customerRequest.getPhone())
+                        .status(customerRequest.getStatus())
+                        .user(customerResponse.getUser())
+                .build());
+        return CustomerResponseMapper.response(CustomerRequest.builder()
+                        .id(saveCustomer.getId())
+                        .firstName(saveCustomer.getFirstName())
+                        .lastName(saveCustomer.getLastName())
+                        .dateOfBirth(saveCustomer.getDateOfBirth().toString())
+                        .phone(saveCustomer.getPhone())
+                        .status(saveCustomer.getStatus()).
+
+                build());
     }
 
     @Override
-    public Customer getById(String id) {
+    public CustomerUserResponse getById(String id) {
         Customer customer = customerRepository.findById(id).orElse(null);
         if (customer == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found");
         }
-        return customer;
+
+        return CustomerResponseMapper.responseCustomerUser(CustomerRequest.builder()
+                        .id(customer.getId())
+                        .dateOfBirth(customer.getDateOfBirth().toString())
+                        .phone(customer.getPhone())
+                        .firstName(customer.getFirstName())
+                        .lastName(customer.getLastName())
+                        .status(customer.getStatus())
+                        .user(customer.getUser())
+                .build());
     }
 
     @Override
-    public List<Customer> getAll() {
-        return customerRepository.findAll();
+    public List<CustomerResponse> getAll() {
+        List<Customer> customerList = customerRepository.findAll();
+        return CustomerResponseMapper.responsesList(customerList);
     }
 
     @Override
     public void remove(String id) {
-        Customer currentCustomer = getById(id);
-        if (currentCustomer == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "customer not found");
+        CustomerUserResponse customerUserResponse = getById(id);
+        if (customerUserResponse != null) {
+          customerRepository.save(Customer.builder()
+                    .id(customerUserResponse.getId())
+                    .firstName(customerUserResponse.getFirstName())
+                    .lastName(customerUserResponse.getLastName())
+                    .phone(customerUserResponse.getPhone())
+                    .dateOfBirth(DateFormat.formatStringToDate(customerUserResponse.getDateOfBirth()))
+                    .phone(customerUserResponse.getPhone())
+                    .user(customerUserResponse.getUser())
+                    .status("not active")
+                    .build());
+            System.out.println("success delete");
         }
-        customerRepository.delete(currentCustomer);
     }
 }

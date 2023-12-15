@@ -18,8 +18,6 @@ public class LoanTransactionDetail {
     @Column(name = "transaction_date", nullable = false)
     private Long trasactionDate;
     @Column(nullable = false)
-    private Double nominal;
-    @Column(nullable = false)
     private LoanStatus loanStatus;
     @Column(nullable = false)
     private Long craetedAt;

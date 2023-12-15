@@ -18,6 +18,7 @@ public class InstalmentType {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     @Column(name = "instalment_type", nullable = false, unique = true)
+    @Enumerated(EnumType.STRING)
     private EInstalmentType instalmentType;
     @OneToMany(mappedBy = "instalmentType")
     private List<LoanTransaction> loanTransactionList;

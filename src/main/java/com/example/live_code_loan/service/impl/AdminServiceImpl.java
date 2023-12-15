@@ -49,5 +49,13 @@ public class AdminServiceImpl implements AdminService {
         if (currentAdmin != null) {
             adminRepository.delete(currentAdmin);
         }
+        adminRepository.save(Admin.builder()
+                        .id(currentAdmin.getId())
+                        .firstName(currentAdmin.getFirstName())
+                        .lastName(currentAdmin.getLastName())
+                        .phone(currentAdmin.getPhone())
+                        .user(currentAdmin.getUser())
+                        .status("not active")
+                .build());
     }
 }

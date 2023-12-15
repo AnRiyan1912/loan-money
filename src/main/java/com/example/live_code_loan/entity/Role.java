@@ -19,7 +19,6 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Password is mandatory")
     private ERole role;
     @OneToMany(mappedBy = "role")
     private List<User> user;
