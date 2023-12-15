@@ -21,26 +21,33 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer update(Customer customer) {
-
-        return null;
+        Customer currentCustomer = getById(customer.getId());
+        if (currentCustomer == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found");
+        }
+        return customerRepository.save(customer);
     }
 
     @Override
     public Customer getById(String id) {
         Customer customer = customerRepository.findById(id).orElse(null);
         if (customer == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found");
         }
-        return null;
+        return customer;
     }
 
     @Override
     public List<Customer> getAll() {
-        return null;
+        return customerRepository.findAll();
     }
 
     @Override
     public void remove(String id) {
-
+        Customer currentCustomer = getById(id);
+        if (currentCustomer == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "customer not found");
+        }
+        customerRepository.delete(currentCustomer);
     }
 }
